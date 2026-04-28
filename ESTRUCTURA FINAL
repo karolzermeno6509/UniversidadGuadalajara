@@ -1,0 +1,5 @@
+/tu-proyecto
+│── server.js
+│── package.json
+│── /public
+│     └── index.html
