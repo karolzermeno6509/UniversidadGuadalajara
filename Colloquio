@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="es" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Evento Webinar</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="/_sdk/data_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Sora', sans-serif; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-12px); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 0 20px rgba(255,107,53,0.3); }
+      50% { box-shadow: 0 0 40px rgba(255,107,53,0.6); }
+    }
+    .anim-1 { animation: fadeUp 0.7s ease both; }
+    .anim-2 { animation: fadeUp 0.7s ease 0.15s both; }
+    .anim-3 { animation: fadeUp 0.7s ease 0.3s both; }
+    .anim-4 { animation: fadeUp 0.7s ease 0.45s both; }
+    .anim-5 { animation: fadeUp 0.7s ease 0.6s both; }
+    .float-orb { animation: float 6s ease-in-out infinite; }
+    .float-orb-2 { animation: float 8s ease-in-out 2s infinite; }
+
+    .toast-enter { animation: fadeUp 0.4s ease both; }
+  </style>
+  <style>body { box-sizing: border-box; }</style>
+ </head>
+ <body class="h-full">
+  <div id="app" class="h-full w-full overflow-auto relative" style="background-color: #0a0e1a;">
+   <!-- Decorative orbs -->
+   <div class="float-orb absolute top-10 left-10 w-48 h-48 rounded-full opacity-20 blur-3xl pointer-events-none" style="background: #ff6b35;"></div>
+   <div class="float-orb-2 absolute bottom-10 right-10 w-64 h-64 rounded-full opacity-15 blur-3xl pointer-events-none" style="background: #ff6b35;"></div>
+   <div class="float-orb absolute top-1/3 right-1/4 w-32 h-32 rounded-full opacity-10 blur-2xl pointer-events-none" style="background: #ffd6c0;"></div>
+   <div class="relative z-10 flex flex-col items-center justify-center min-h-full px-4 py-12">
+    <!-- Badge -->
+    <div class="anim-1 inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-medium tracking-wider uppercase mb-8" style="background: rgba(255,107,53,0.15); color: #ff6b35; border: 1px solid rgba(255,107,53,0.25);">
+     <span class="w-2 h-2 rounded-full animate-pulse" style="background: #ff6b35;"></span> <span>Evento en vivo</span>
+    </div><!-- Title -->
+    <h1 id="el-title" class="anim-2 text-3xl sm:text-4xl md:text-5xl font-bold text-center max-w-3xl leading-tight" style="color: #f0ece4;">Encuentro de buenas prácticas: Formación del sector público en países OCDE</h1><!-- Description -->
+    <p id="el-description" class="anim-3 mt-6 text-sm sm:text-base text-center max-w-2xl leading-relaxed" style="color: rgba(240,236,228,0.7);">La Universidad de Guadalajara, comprometida con la generación de conocimiento y el fortalecimiento de la gestión pública, organiza el coloquio Diálogos OCDE: Formación del Talento Público. Este espacio de análisis y reflexión reúne a académicos, servidores públicos y especialistas nacionales e internacionales para examinar las estrategias, desafíos y buenas prácticas en la capacitación y profesionalización del sector público.</p><!-- Date card -->
+    <div class="anim-4 mt-8 flex flex-wrap items-center justify-center gap-4">
+     <div class="flex items-center gap-3 px-5 py-3 rounded-xl" style="background: rgba(255,107,53,0.1); border: 1px solid rgba(255,107,53,0.2);">
+      <i data-lucide="calendar" style="color: #ff6b35; width:20px; height:20px;"></i> <span id="el-date" class="text-sm font-medium" style="color: #f0ece4;">1 Mayo 2026 | 12:00 PM</span>
+     </div><a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Webinar+Educativo&amp;dates=20260501T180000Z/20260501T190000Z&amp;details=Evento+online&amp;location=Online" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-medium transition-all duration-300 hover:scale-105" style="background: rgba(240,236,228,0.08); border: 1px solid rgba(240,236,228,0.15); color: #f0ece4;"> <i data-lucide="external-link" style="width:16px; height:16px;"></i> Google Calendar </a>
+    </div><!-- Registration card -->
+    <div class="anim-5 mt-10 w-full max-w-md rounded-2xl p-8 relative overflow-hidden" style="background: rgba(240,236,228,0.05); border: 1px solid rgba(240,236,228,0.1); backdrop-filter: blur(10px);">
+     <h2 class="text-xl font-semibold mb-6 text-center" style="color: #f0ece4;">Registro</h2>
+     <form id="reg-form" class="flex flex-col gap-4">
+      <div>
+       <label for="institution" class="block text-xs font-medium mb-1.5 uppercase tracking-wider" style="color: rgba(240,236,228,0.5);">Institución</label> <input type="text" id="institution" required placeholder="Nombre de tu institución" class="w-full px-4 py-3 rounded-xl text-sm outline-none transition-all duration-300 focus:ring-2" style="background: rgba(240,236,228,0.07); border: 1px solid rgba(240,236,228,0.12); color: #f0ece4; --tw-ring-color: rgba(255,107,53,0.5);">
+      </div>
+      <div>
+       <label for="name" class="block text-xs font-medium mb-1.5 uppercase tracking-wider" style="color: rgba(240,236,228,0.5);">Nombre</label> <input type="text" id="name" required placeholder="Tu nombre completo" class="w-full px-4 py-3 rounded-xl text-sm outline-none transition-all duration-300 focus:ring-2" style="background: rgba(240,236,228,0.07); border: 1px solid rgba(240,236,228,0.12); color: #f0ece4; --tw-ring-color: rgba(255,107,53,0.5);">
+      </div>
+      <div>
+       <label for="email" class="block text-xs font-medium mb-1.5 uppercase tracking-wider" style="color: rgba(240,236,228,0.5);">Email</label> <input type="email" id="email" required placeholder="tu@email.com" class="w-full px-4 py-3 rounded-xl text-sm outline-none transition-all duration-300 focus:ring-2" style="background: rgba(240,236,228,0.07); border: 1px solid rgba(240,236,228,0.12); color: #f0ece4; --tw-ring-color: rgba(255,107,53,0.5);">
+      </div><button id="submit-btn" type="submit" class="w-full py-3.5 rounded-xl text-sm font-semibold transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] mt-2 flex items-center justify-center gap-2" style="background: #ff6b35; color: #0a0e1a; animation: pulse-glow 3s ease-in-out infinite;"> <span id="btn-text">Registrarme</span> <span id="btn-loader" class="hidden">
+        <svg class="animate-spin w-5 h-5" viewbox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" opacity="0.3" /><path d="M12 2a10 10 0 0 1 10 10" stroke="currentColor" stroke-width="3" stroke-linecap="round" />
+        </svg></span> </button>
+     </form><!-- Toast message area -->
+     <div id="toast" class="hidden mt-4 px-4 py-3 rounded-xl text-sm text-center font-medium"></div>
+    </div>
+   </div>
+  </div>
+  <script>
+    // Config & defaults
+    const defaultConfig = {
+      event_title: 'Encuentro de buenas prácticas: Formación del sector público en países OCDE',
+      event_description: 'La Universidad de Guadalajara, comprometida con la generación de conocimiento y el fortalecimiento de la gestión pública, organiza el coloquio Diálogos OCDE: Formación del Talento Público. Este espacio de análisis y reflexión reúne a académicos, servidores públicos y especialistas nacionales e internacionales para examinar las estrategias, desafíos y buenas prácticas en la capacitación y profesionalización del sector público.',
+      event_date: '1 Mayo 2026 | 12:00 PM',
+      button_text: 'Registrarme',
+      background_color: '#0a0e1a',
+      surface_color: '#ff6b35',
+      text_color: '#f0ece4',
+      primary_action_color: '#ff6b35',
+      secondary_action_color: '#ffd6c0',
+      font_family: 'Sora',
+      font_size: 16
+    };
+
+    function applyConfig(config) {
+      const c = { ...defaultConfig, ...config };
+      const font = `${c.font_family}, sans-serif`;
+      const base = c.font_size;
+
+      document.getElementById('el-title').textContent = c.event_title;
+      document.getElementById('el-description').textContent = c.event_description;
+      document.getElementById('el-date').textContent = c.event_date;
+      document.getElementById('btn-text').textContent = c.button_text;
+
+      // Colors
+      document.getElementById('app').style.backgroundColor = c.background_color;
+      document.getElementById('el-title').style.color = c.text_color;
+      document.getElementById('el-description').style.color = c.text_color;
+      document.getElementById('el-description').style.opacity = '0.7';
+      document.getElementById('submit-btn').style.backgroundColor = c.primary_action_color;
+
+      // Font
+      document.body.style.fontFamily = font;
+      document.getElementById('el-title').style.fontFamily = font;
+
+      // Font size
+      document.getElementById('el-title').style.fontSize = `${base * 2.5}px`;
+      document.getElementById('el-description').style.fontSize = `${base * 0.95}px`;
+    }
+
+    // Element SDK init
+    window.elementSdk.init({
+      defaultConfig,
+      onConfigChange: async (config) => applyConfig(config),
+      mapToCapabilities: (config) => {
+        const c = { ...defaultConfig, ...config };
+        const mkColor = (key) => ({
+          get: () => c[key] || defaultConfig[key],
+          set: (v) => { c[key] = v; window.elementSdk.setConfig({ [key]: v }); }
+        });
+        return {
+          recolorables: [
+            mkColor('background_color'),
+            mkColor('surface_color'),
+            mkColor('text_color'),
+            mkColor('primary_action_color'),
+            mkColor('secondary_action_color')
+          ],
+          borderables: [],
+          fontEditable: {
+            get: () => c.font_family || defaultConfig.font_family,
+            set: (v) => { c.font_family = v; window.elementSdk.setConfig({ font_family: v }); }
+          },
+          fontSizeable: {
+            get: () => c.font_size || defaultConfig.font_size,
+            set: (v) => { c.font_size = v; window.elementSdk.setConfig({ font_size: v }); }
+          }
+        };
+      },
+      mapToEditPanelValues: (config) => {
+        const c = { ...defaultConfig, ...config };
+        return new Map([
+          ['event_title', c.event_title],
+          ['event_description', c.event_description],
+          ['event_date', c.event_date],
+          ['button_text', c.button_text]
+        ]);
+      }
+    });
+
+    // Data SDK init (write-only)
+    window.dataSdk.init({ onDataChanged() {} });
+
+    // Form handling
+    const form = document.getElementById('reg-form');
+    const toast = document.getElementById('toast');
+    const btnText = document.getElementById('btn-text');
+    const btnLoader = document.getElementById('btn-loader');
+    const submitBtn = document.getElementById('submit-btn');
+
+    function showToast(message, success) {
+      toast.textContent = message;
+      toast.className = 'mt-4 px-4 py-3 rounded-xl text-sm text-center font-medium toast-enter';
+      toast.style.background = success ? 'rgba(34,197,94,0.15)' : 'rgba(239,68,68,0.15)';
+      toast.style.color = success ? '#4ade80' : '#f87171';
+      toast.style.border = `1px solid ${success ? 'rgba(34,197,94,0.3)' : 'rgba(239,68,68,0.3)'}`;
+      setTimeout(() => { toast.className = 'hidden'; }, 4000);
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const institution = document.getElementById('institution').value.trim();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      if (!institution || !name || !email) return;
+
+      submitBtn.disabled = true;
+      btnText.classList.add('hidden');
+      btnLoader.classList.remove('hidden');
+
+      const result = await window.dataSdk.create({
+        institution, name, email, registered_at: new Date().toISOString()
+      });
+
+      submitBtn.disabled = false;
+      btnText.classList.remove('hidden');
+      btnLoader.classList.add('hidden');
+
+      if (result.isOk) {
+        showToast('✅ ¡Registro exitoso! Te esperamos en el evento.', true);
+        form.reset();
+      } else {
+        showToast('❌ Error al registrar. Intenta de nuevo.', false);
+      }
+    });
+
+    lucide.createIcons();
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9f37911f63a1e1fa',t:'MTc3NzM5NTAzNi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
