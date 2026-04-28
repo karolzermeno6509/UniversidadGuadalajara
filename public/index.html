@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Evento OCDE</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-black text-white flex items-center justify-center min-h-screen">
+
+<div class="max-w-md w-full p-6 bg-gray-900 rounded-xl">
+  <h1 class="text-2xl font-bold text-center">Coloquio OCDE</h1>
+  <p class="text-center mt-2">1 Mayo 2026 | 12:00 PM</p>
+
+  <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Coloquio+OCDE&dates=20260501T180000Z/20260501T190000Z&details=Evento&location=Online"
+     target="_blank"
+     class="block mt-4 text-center bg-gray-700 p-2 rounded">
+     📅 Agregar a Google Calendar
+  </a>
+
+  <form id="form" class="mt-6 space-y-3">
+    <input type="text" id="institution" placeholder="Institución" required class="w-full p-2 rounded bg-gray-800">
+    <input type="text" id="name" placeholder="Nombre" required class="w-full p-2 rounded bg-gray-800">
+    <input type="email" id="email" placeholder="Email" required class="w-full p-2 rounded bg-gray-800">
+    <button class="w-full bg-orange-500 p-2 rounded">Registrarme</button>
+  </form>
+
+  <p id="msg" class="text-center mt-3"></p>
+</div>
+
+<script>
+document.getElementById("form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const data = {
+    institution: document.getElementById("institution").value,
+    name: document.getElementById("name").value,
+    email: document.getElementById("email").value
+  };
+
+  const res = await fetch("/register", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(data)
+  });
+
+  const result = await res.json();
+
+  const msg = document.getElementById("msg");
+
+  if (result.success) {
+    msg.innerText = "✅ Registro exitoso. Revisa tu correo.";
+  } else {
+    msg.innerText = "❌ Error al registrar.";
+  }
+});
+</script>
+
+</body>
+</html>
